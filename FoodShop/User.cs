@@ -12,7 +12,7 @@ namespace FoodShop
         private Shop shop;
         private int x;
         private double y;
-        private bool add;
+        private bool add = false;
 
         public User()
         {
@@ -32,23 +32,26 @@ namespace FoodShop
 
         public void Start(int x, double y)
         {
-            
+            if (!shop.IsOpen)
+            {
+                Console.WriteLine("The shop is close");
+                return;
+            }
             this.x = x;
             this.y = y;
-            if (x <= 0)
+            if (x <= 0 || y <= 0) 
             {
-                Console.WriteLine("X must be greater than 0");
+                Console.WriteLine("X and Y must be greater than 0");
                 return;
             }
-            if (y <= 0)
-            {
-                Console.WriteLine("Y must be greater than 0");
-                return;
-            }
-            add = true;
+            
             //Console.WriteLine("We advertise the store for new buyers, please wait");
             //Bug was fixed
-            Task.Run(() => Start());
+            if (!add)
+            {
+                add = true;
+                Task.Run(() => Start());
+            }
             //Console.WriteLine("Start2");
         }
 
@@ -63,13 +66,14 @@ namespace FoodShop
             Console.WriteLine("Start adding");
             while(add)
             {
-                Thread.Sleep(Convert.ToInt32(y * 1000));
+                //Thread.Sleep(Convert.ToInt32(y * 1000));
                 if (!add) return;
                 Console.WriteLine($"Add {x} new buyers");
-                Parallel.For(0, x, (x) =>
-                  {
-                      shop.Add(new Buyer());
-                  });
+                for (int i = 0; i < x; i++) 
+                {
+                    shop.Add(new Buyer());
+                }
+                Thread.Sleep(Convert.ToInt32(y * 1000));
             }
         }
 

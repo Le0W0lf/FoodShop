@@ -7,6 +7,7 @@ namespace FoodShop
     {
         internal const int MaxArrayLength = 0X7FEFFFFF;
         internal const int MaxByteArrayLength = 0x7FFFFFC7;
+        static public Random rnd = new Random();
 
         public static MyList<Seller> NewListOfSellers(int capacity)
         {

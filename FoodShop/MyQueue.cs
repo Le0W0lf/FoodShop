@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace FoodShop
 {
-    class MyQueue<T>
+    public class MyQueue<T>// where T:Buyer
     {
         private volatile Segment m_head;
         private volatile Segment m_tail;
@@ -42,6 +42,11 @@ namespace FoodShop
 
         public void Enqueue(T item)
         {
+            if (item == null)
+            {
+                Console.WriteLine("RIP buyer");
+                return;
+            }
             SpinWait spin = new SpinWait();
             while (true)
             {
@@ -58,7 +63,10 @@ namespace FoodShop
             {
                 Segment head = m_head;
                 if (head.TryRemove(out result))
+                {
+                    if (result == null) Console.WriteLine("Try Dequeue Null");
                     return true;
+                }
                 //since method IsEmpty spins, we don't need to spin in the while loop
             }
             result = default(T);

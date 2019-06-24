@@ -12,6 +12,17 @@ namespace FoodShop
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(Product.Cake.ToString());
+           /* Shop shop = new Shop();
+            shop.Open();
+            Buyer buyer = new Buyer();
+            shop.Add(buyer);
+            Thread.Sleep(1000);
+            shop.Statistic();
+            Thread.Sleep(1000);
+            shop.Statistic();
+            Console.Read();*/
+            
             User user = new User();
 
             Console.WriteLine("\"open\"      for open shop");
@@ -35,9 +46,9 @@ namespace FoodShop
                         user.Statistic();
                         break;
                     case "start":
-                        int x;
-                        double y;
-                        if (!int.TryParse(s[1], out x) || !double.TryParse(s[2], out y))
+                        int x=0;
+                        double y=0;
+                        if (s.Length != 3 || !int.TryParse(s[1], out x) || !double.TryParse(s[2], out y)) 
                         {
                             Console.WriteLine("Somethings go wrong. :( Try again");
                             break;
@@ -57,7 +68,7 @@ namespace FoodShop
 
             }
             //Console.Read();
-
+            
         }
 
         

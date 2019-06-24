@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FoodShop
 {
-    class MyList<T>:IEnumerable<T>
+    public class MyList<T>:IEnumerable<T>
     {
         private const int _defaultCapacity = 4;
 
